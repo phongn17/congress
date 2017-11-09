@@ -114,8 +114,9 @@ contract Congress is Owned, TokenRecipient {
     function removeMember(address targetMember) onlyOwner public {
         require(memberId[targetMember] != 0);
 
-        for (uint idx = memberId[targetMember]; idx < members.length - 1; idx++)
+        for (uint idx = memberId[targetMember]; idx < members.length - 1; idx++) {
             members[idx] = members[idx + 1];
+        }
 
         delete members[members.length - 1];
         members.length--;
@@ -203,6 +204,8 @@ contract Congress is Owned, TokenRecipient {
         else
             proposal.proposalPassed = false;
 
-        ProposalTallied(proposalId, proposal.currentResult, proposal.numberOfVotes, proposal.proposalPassed);
+        ProposalTallied(
+            proposalId, proposal.currentResult, proposal.numberOfVotes, proposal.proposalPassed
+        );
     }
 }
